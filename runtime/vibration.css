@@ -1,0 +1,53 @@
+/* dsh-audio-vibration 页面样式：右侧居中竖线 + 从右向左生长的音频条频谱。 */
+
+html[data-av-vib="on"] #dsh-av-stem {
+  display: block;
+}
+html[data-av-vib="on"] #dsh-av-bars {
+  display: flex;
+}
+
+#dsh-av-stem,
+#dsh-av-bars {
+  display: none;
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 2147483000;
+  pointer-events: none;
+}
+
+/* 初始态：居中、可调长度的一根白色竖线（从中间向上下两侧生长/缩短） */
+#dsh-av-stem {
+  width: 3px;
+  height: 100vh;
+  background: #ffffff;
+  opacity: 0.9;
+  box-shadow: none;
+  will-change: box-shadow, opacity, height;
+}
+
+/* 音频条容器：与竖线同轴居中，条从右边缘向左生长 */
+#dsh-av-bars {
+  width: 120px;
+  flex-direction: column;
+  align-items: flex-end;
+  overflow: visible;
+}
+
+.dsh-av-bar {
+  height: 3px;
+  width: 100%;
+  background: #ffffff;
+  transform-origin: right center;
+  transform: scaleX(0);
+  will-change: transform, box-shadow;
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dsh-av-bar {
+    transform: none !important;
+  }
+}

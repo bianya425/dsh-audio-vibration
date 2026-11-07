@@ -1,0 +1,50 @@
+{
+  "name": "dsh-audio-vibration",
+  "version": "1.2.0",
+  "private": true,
+  "type": "module",
+  "description": "右侧音频条频谱：一根白色竖线出现在页面最右边，随电脑正在播放的声音长出频谱条、向左生长（宿主侧 WASAPI loopback，只取频谱与低频，不录音、不上传）。",
+  "keywords": [
+    "deepseek",
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "audio",
+    "visualizer",
+    "vibration",
+    "wasapi"
+  ],
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "runtime",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "icon.svg"
+  ],
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "react": "^18.3.1"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": []
+    }
+  },
+  "license": "MIT",
+  "author": "dsh-audio-vibration authors"
+}

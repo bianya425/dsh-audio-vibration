@@ -1,56 +1,22 @@
 # dsh-audio-vibration
 
-A DeepSeek Harness (DSH) plugin that adds a dynamic audio spectrum visualizer to the sidebar. It captures local system audio via WASAPI loopback and generates real-time visual vibration effects.
+在 DeepSeek Harness Web 页面最右边显示一根**白色竖直的线**，播放声音时它会朝左**长出音频条频谱**，静音时收成一根竖线。
 
-## Features
+- 宿主侧用 **WASAPI loopback**（NAudio）抓默认输出设备，做 32 段 FFT 频谱，**不录音、不上传**。
+- 音频条从右边缘向左生长，条的长度对应该频段的能量，低频越强、音量越大，生长和光晕越明显。
+- 设置里可自由调整透明度、振幅（最大长度）、条数、条间距、竖线粗细、颜色、泛光、灵敏度、回落速度。
 
--   **Real-time Visualization:** Displays a responsive audio spectrum bar.
--   **WASAPI Loopback:** Captures system-wide audio output directly.
--   **Lightweight:** Built with JavaScript and NAudio for minimal performance impact.
+## 使用
 
-## Prerequisites
+安装启用后，播放任意音频（音乐、视频、提示音），页面最右边的竖线会向左长出随频谱起伏的音频条；静音时收成一根竖线。
 
--   **Node.js:** Version >= 20
--   **DeepSeek Harness (DSH):** Ensure you have the DSH client installed.
+打开「设置 → 右侧律动竖线」即可调整各项参数，改动即时生效。
 
-## Installation
+## 支持的平台
 
-### Option 1: Install via DSH (Recommended)
+- **Windows**：完整支持（WASAPI loopback）。
+- 其它平台：暂时只做优雅降级提示，不影响页面使用。
 
-If you are using the DSH client, you can install this plugin directly via the plugin manager or by adding it to your `cordis.patch.yml`.
+## 自包含
 
-### Option 2: Manual Installation
-
-1.  Clone this repository:
-    ```bash
-    git clone https://github.com/bianya425/dsh-audio-vibration.git
-
-    ```
-2.  Navigate to the plugin directory:
-    ```bash
-    cd dsh-audio-vibration/dsh-audio-vibration
-
-    ```
-3.  Install dependencies:
-    ```bash
-    npm install
-
-    ```
-4.  Link or copy the plugin folder to your DSH plugins directory.
-
-## Configuration
-
-You can customize the visualizer behavior in the plugin settings (if exposed via DSH UI) or by modifying the configuration file:
-
--   **Sensitivity:** Adjust the reaction intensity to audio levels.
--   **Color:** Customize the color of the vibration bars.
--   **Position:** Toggle the position of the spectrum bar (Right/Left).
-
-## Dependencies
-
--   **NAudio:** This plugin relies on `NAudio.dll` for Windows audio capture.
-    -   *Note: If running manually, ensure `NAudio.dll` is present in the root directory.*
-
-## License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+音频采集用的 `NAudio.dll` 已随包一起分发，安装后会自动复制到系统临时目录，不依赖其它插件。
